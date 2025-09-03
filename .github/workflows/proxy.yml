@@ -1,0 +1,24 @@
+name: PUBG Proxy Europe
+
+on:
+  workflow_dispatch: # تشغيل يدوي
+
+jobs:
+  run-proxy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup proxy container
+        run: |
+          sudo apt update
+          sudo apt install -y docker.io
+          docker run -d \
+            --name xray-proxy \
+            -p 1080:1080 \
+            teddysun/xray \
+            -c /etc/xray/config.json
+
+      - name: Show Proxy Endpoint
+        run: |
+          echo "📡 Proxy endpoint:"
+          curl -s ifconfig.me
+          echo ":1080"
